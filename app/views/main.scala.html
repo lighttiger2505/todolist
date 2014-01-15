@@ -3,13 +3,29 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @content
-    </body>
+<head>
+<title>@title</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+</head>
+<body>
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="@routes.Application.tasks()"/>TODO</a>
+            <ul class="nav">
+                <li><a href="@routes.Application.tasks()">login</a></li>
+                <li><a href="@routes.Application.tasks()">contacts</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="content">
+        @content,
+    </div>
+</div>
+</body>
 </html>

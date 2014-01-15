@@ -1,0 +1,17 @@
+@(id:Long)
+
+@import helper._
+
+@main("Task edit") {
+
+<h1>Edit task</h1>
+
+<fieldset>
+  @id
+</fieldset>
+
+<div class="actions">
+  <input type=submit" value="Save task" class="btn primary"> or
+  <a href="@routes.Application.tasks()" class=btn">Cancel</a>
+</div>
+}
