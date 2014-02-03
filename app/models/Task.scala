@@ -7,17 +7,19 @@ import play.api.Play.current
 
 case class Task(
     id: Pk[Long], 
-    label: String
+    label: String,
+    memo: String
 )
 
 object Task {
 
     val simple = {
         get[Pk[Long]]("id") ~
-        get[String]("label") map {
-            case id~label => Task(id, label)
+        get[String]("label") ~
+        get[String]("memo") map {
+            case id~label~memo => Task(id, label, memo)
         }
-        }
+    }
 
     def all(): List[Task] = DB.withConnection { implicit c =>
         SQL("select * from task").as(Task.simple *)
@@ -31,10 +33,11 @@ object Task {
             }
         }
 
-    def create(label: String) {
+    def create(task: Task) {
         DB.withConnection { implicit c =>
-            SQL("insert into task (label) values ({label})").on(
-                'label -> label
+            SQL("insert into task (label, memo) values ({label}, {memo})").on(
+                'label -> task.label,
+                'memo -> task.memo
             ).executeUpdate()
             }
         }
@@ -43,7 +46,8 @@ object Task {
         DB.withConnection { implicit c =>
             SQL("update task set label = {label} where id = {id}").on(
                 'id -> id,
-                'label -> task.label
+                'label -> task.label,
+                'memo -> task.memo
             ).executeUpdate()
             }
         }

@@ -1,48 +1,50 @@
 @(tasks: List[Task], taskForm: Form[Task])
 
 @import helper._
+@import helper.twitterBootstrap._
 
 @main("Todo list") {
-<div class="container">
-    <h1>@tasks.size task(s)</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>タスク</th>
-                <th>編集</th>
-            </tr>
-        </thead>
-        <tbody>
-            @tasks.map { task =>
-            <tr>
-                <td>
-                    @task.label
-                </td>
-                <td>
-                    <ul class="nav nav-pills">
-                        <li>
-                            @form(routes.Application.delete(task.id.get)) {
-                            <input type="submit" value="Delete">
-                            }
-                        </li>
-                        <li>
-                            @form(routes.Application.edit(task.id.get)) {
-                            <input type="submit" value="Edit">
-                            }
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+    <div class="container">
+        <h1>@tasks.size task(s)</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>タスク</th>
+                    <th>編集</th>
+                </tr>
+            </thead>
+            <tbody>
+                @tasks.map { task =>
+                <tr>
+                    <td>
+                        @task.label
+                    </td>
+                    <td>
+                        <ul class="nav nav-pills">
+                            <li>
+                                @form(routes.Application.delete(task.id.get)) {
+                                <input type="submit" value="Delete">
+                                }
+                            </li>
+                            <li>
+                                @form(routes.Application.edit(task.id.get)) {
+                                <input type="submit" value="Edit">
+                                }
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-<div class="container">
+    <div class="container">
     <h1>Add a new task</h1>
     @form(routes.Application.create) {
-    @inputText(taskForm("label")) 
-    <input type="submit" value="Create">
+        @inputText(field = taskForm("label"), args = 'size -> 10)
+        @textarea(field = taskForm("memo"), args = 'rows -> 3, 'cols -> 20)
+        <input type="submit" value="Create">
     }
-    }
+}
 </div>

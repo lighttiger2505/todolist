@@ -7,7 +7,8 @@
 <h1>Edit task</h1>
 
     @form(routes.Application.update(id)) {
-    @inputText(taskForm("label")) 
+    @inputText(taskForm("label"))
+    @textarea(taskForm("memo"))
     <input type="submit" value="Create">
     }
 }
