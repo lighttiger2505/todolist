@@ -6,34 +6,55 @@ import play.api.data._
 import play.api.data.Forms._
 import models._
 
+import anorm._
+
 object Application extends Controller {
 
-  def index = Action {
-    Redirect(routes.Application.tasks)
-  }
-
-  def tasks = Action {
-    Ok(views.html.index(Task.all(), taskForm))
-  }
-  
-  val taskForm = Form(
-    "label" -> nonEmptyText
-  )
-
-  def newTask = Action { implicit request =>
-    taskForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index(Task.all(), errors)),
-      label => {
-        Task.create(label)
-        Redirect(routes.Application.tasks)
-      }
+    val taskForm = Form(
+        mapping(
+            "id" -> ignored(NotAssigned:Pk[Long]),
+            "label" -> nonEmptyText
+        )(Task.apply)(Task.unapply)
     )
-  }
-  
-  def deleteTask(id:Long) = Action {
-    Task.delete(id)
-    Redirect(routes.Application.tasks)
-  }
+
+    def index = Action {
+        Redirect(routes.Application.tasks)
+    }
+
+    def tasks = Action {
+        Ok(views.html.index(Task.all(), taskForm))
+    }
+
+    def edit(id: Long) = Action {
+        Task.findById(id).map { task =>
+            Ok(views.html.edit(id, taskForm.fill(task)))
+        }.getOrElse(NotFound)
+    }
+
+    def update(id: Long) = Action { implicit request =>
+        taskForm.bindFromRequest.fold(
+            errors => BadRequest(views.html.index(Task.all(), errors)),
+            task => {
+                Task.update(id, task)
+                Redirect(routes.Application.tasks)
+            }
+        )
+    }
+
+    def create = Action { implicit request =>
+        taskForm.bindFromRequest.fold(
+            errors => BadRequest(views.html.index(Task.all(), errors)),
+            task => {
+                Task.create(task.label)
+                Redirect(routes.Application.tasks)
+            }
+        )
+    }
+
+    def delete(id:Long) = Action {
+        Task.delete(id)
+        Redirect(routes.Application.tasks)
+    }
 
 }
 
