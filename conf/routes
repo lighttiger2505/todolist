@@ -12,4 +12,4 @@ POST	/tasks	controllers.Application.create
 POST	/tasks/:id/delete	controllers.Application.delete(id:Long)
 POST /tasks:id/edit controllers.Application.edit(id:Long)
 POST /edit:id/update controllers.Application.update(id:Long)
-
+GET /tasks/add controllers.Application.add

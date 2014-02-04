@@ -5,7 +5,13 @@
 
 @main("Todo list") {
     <div class="container">
-        <h1>@tasks.size task(s)</h1>
+        <h1>Menu</h1>
+        <li>
+            <ul><a href="@routes.Application.add()">new task</a></ul>
+        </li>
+
+        <h1>List<h1>
+        <h2>@tasks.size task(s)</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -38,13 +44,5 @@
             </tbody>
         </table>
     </div>
-
-    <div class="container">
-    <h1>Add a new task</h1>
-    @form(routes.Application.create) {
-        @inputText(field = taskForm("label"), args = 'size -> 10)
-        @textarea(field = taskForm("memo"), args = 'rows -> 3, 'cols -> 20)
-        <input type="submit" value="Create">
-    }
 }
 </div>

@@ -49,8 +49,8 @@ object Task {
                 'label -> task.label,
                 'memo -> task.memo
             ).executeUpdate()
-            }
         }
+    }
 
     def delete(id: Long) {
         DB.withConnection { implicit c =>
