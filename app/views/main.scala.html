@@ -3,42 +3,42 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-<title>@title</title>
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-</head>
-<body>
-<div class="topbar">
-    <div class="fill">
+  <head>
+    <title>@title</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="fill">
         <div class="container">
-            <a class="brand" href="@routes.Application.tasks()"/>TODO</a>
-            <ul class="nav">
-                <li><a href="@routes.Application.tasks()">login</a></li>
-                <li><a href="@routes.Application.tasks()">contacts</a></li>
-            </ul>
+          <a class="brand" href="@routes.Tasks.tasks()"/>TODO</a>
+          <ul class="nav">
+            <li><a href="@routes.Tasks.tasks()">login</a></li>
+            <li><a href="@routes.Tasks.tasks()">contacts</a></li>
+          </ul>
         </div>
+      </div>
     </div>
-</div>
-<div class="container">
-    <div class="row">
+    <div class="container">
+      <div class="row">
         <div class="span3">
-            <ul class="">
-                <ul class="nav">
-                    <li><a href="#">navigation1</a></li>
-                    <li><a href="#">navigation2</a></li>
-                    <li><a href="#">navigation3</a></li>
-                    <li><a href="#">navigation4</a></li>
-                    <li><a href="#">navigation5</a></li>
-                </ul>
-            </div>
-            <div class="span1"/>
+          <ul class="">
+            <ul class="nav">
+              <li><a href="#">navigation1</a></li>
+              <li><a href="#">navigation2</a></li>
+              <li><a href="#">navigation3</a></li>
+              <li><a href="#">navigation4</a></li>
+              <li><a href="#">navigation5</a></li>
+            </ul>
+          </div>
+          <div class="span1"/>
             <div class="span12">
-                @content
+              @content
             </div>
+          </div>
         </div>
-    </div>
-</body>
-</html>
+      </body>
+    </html>

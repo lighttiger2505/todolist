@@ -24,8 +24,8 @@ object Task {
         get[Option[Int]]("priority") ~
         get[Option[String]]("memo") map {
             case id~label~date~priority~memo => Task(id, label, date, priority, memo)
+}
         }
-    }
 
     def all(): List[Task] = DB.withConnection { implicit c =>
         SQL("select * from task").as(Task.simple *)
@@ -46,12 +46,12 @@ object Task {
                 task (label, memo, date, priority) 
                 values ({label}, {memo}, {date}, {priority})
                 """).on(
-                'label -> task.label,
-                'memo -> task.memo,
-                'date -> task.date,
-                'priority -> task.priority
-            ).executeUpdate()
-            }
+                    'label -> task.label,
+                    'memo -> task.memo,
+                    'date -> task.date,
+                    'priority -> task.priority
+                ).executeUpdate()
+                }
         }
 
     def update(id: Long, task: Task) = {
@@ -65,14 +65,14 @@ object Task {
                 priority = {priority}
                 where id = {id}
                 """).on(
-                'id -> id,
-                'label -> task.label,
-                'memo -> task.memo,
-                'date -> task.date,
-                'priority -> task.priority
-            ).executeUpdate()
+                    'id -> id,
+                    'label -> task.label,
+                    'memo -> task.memo,
+                    'date -> task.date,
+                    'priority -> task.priority
+                ).executeUpdate()
+                }
         }
-    }
 
     def delete(id: Long) {
         DB.withConnection { implicit c =>

@@ -4,26 +4,27 @@
 
 @main("Task Create") {
 
-    <h1>Add task</h1>
+<h1>Add task</h1>
 
-    @form(routes.Application.create) {
+@form(routes.Tasks.create) {
 
-        @inputText(
-        field = taskForm("label"), 
-        args = 'size -> 10)
+@inputText(
+field = taskForm("label"), 
+args = 'size -> 10)
 
-        @inputDate(
-        field = taskForm("date"),
-        args = 'size -> 10)
+@inputDate(
+field = taskForm("date"),
+args = 'size -> 10)
 
-        @inputText(
-        field = taskForm("priority"),
-        args = 'size -> 5)
+@inputText(
+field = taskForm("priority"),
+args = 'size -> 5)
 
-        @textarea(
-        field = taskForm("memo"), 
-        args = 'rows -> 3, 'cols -> 20)
+@textarea(
+field = taskForm("memo"), 
+args = 'rows -> 3, 'cols -> 20)
 
-        <input type="submit" value="Create">
-    }
+<button type="submit" class="btn btn-primary">Create</button>
+<button class="btn">Cancel</button>
+}
 }
