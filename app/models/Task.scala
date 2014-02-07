@@ -5,10 +5,14 @@ import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
 
+import java.util.{Date}
+
 case class Task(
     id: Pk[Long], 
     label: String,
-    memo: String
+    date: Option[Date],
+    priority: Option[Int],
+    memo: Option[String]
 )
 
 object Task {
@@ -16,8 +20,10 @@ object Task {
     val simple = {
         get[Pk[Long]]("id") ~
         get[String]("label") ~
-        get[String]("memo") map {
-            case id~label~memo => Task(id, label, memo)
+        get[Option[Date]]("date") ~
+        get[Option[Int]]("priority") ~
+        get[Option[String]]("memo") map {
+            case id~label~date~priority~memo => Task(id, label, date, priority, memo)
         }
     }
 
@@ -35,19 +41,35 @@ object Task {
 
     def create(task: Task) {
         DB.withConnection { implicit c =>
-            SQL("insert into task (label, memo) values ({label}, {memo})").on(
+            SQL("""
+                insert into 
+                task (label, memo, date, priority) 
+                values ({label}, {memo}, {date}, {priority})
+                """).on(
                 'label -> task.label,
-                'memo -> task.memo
+                'memo -> task.memo,
+                'date -> task.date,
+                'priority -> task.priority
             ).executeUpdate()
             }
         }
 
     def update(id: Long, task: Task) = {
         DB.withConnection { implicit c =>
-            SQL("update task set label = {label} where id = {id}").on(
+            SQL("""
+                update 
+                task 
+                set 
+                label = {label},
+                date = {date},
+                priority = {priority}
+                where id = {id}
+                """).on(
                 'id -> id,
                 'label -> task.label,
-                'memo -> task.memo
+                'memo -> task.memo,
+                'date -> task.date,
+                'priority -> task.priority
             ).executeUpdate()
         }
     }

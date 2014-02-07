@@ -14,9 +14,11 @@ object Application extends Controller {
         mapping(
             "id" -> ignored(NotAssigned:Pk[Long]),
             "label" -> nonEmptyText,
-            "memo" -> text
-            )(Task.apply)(Task.unapply)
-            )
+            "date" -> optional(date("yyyy/MM/dd")),
+            "priority" -> optional(number),
+            "memo" -> optional(text)
+        )(Task.apply)(Task.unapply)
+    )
 
     def index = Action {
         Redirect(routes.Application.tasks)
