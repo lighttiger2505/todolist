@@ -25,17 +25,17 @@ object Tasks extends Controller with Secured {
         Ok(html.tasks.index(Task.all(), taskForm))
     }
 
-    def add = Action {
+    def add = IsAuthenticated { email => _ =>
         Ok(html.tasks.add(taskForm))
     }
 
-    def edit(id: Long) = Action {
+    def edit(id: Long) = IsAuthenticated { email => _ =>
         Task.findById(id).map { task =>
             Ok(html.tasks.edit(id, taskForm.fill(task)))
         }.getOrElse(NotFound)
     }
 
-    def update(id: Long) = Action { implicit request =>
+    def update(id: Long) = IsAuthenticated { email => implicit request =>
         taskForm.bindFromRequest.fold(
             errors => BadRequest(html.tasks.index(Task.all(), errors)),
             task => {
@@ -45,7 +45,7 @@ object Tasks extends Controller with Secured {
         )
     }
 
-    def create = Action { implicit request =>
+    def create = IsAuthenticated { email => implicit request =>
         taskForm.bindFromRequest.fold(
             errors => BadRequest(html.tasks.index(Task.all(), errors)),
             task => {
@@ -55,7 +55,7 @@ object Tasks extends Controller with Secured {
         )
     }
 
-    def delete(id:Long) = Action {
+    def delete(id:Long) = IsAuthenticated { email => _ =>
         Task.delete(id)
         Redirect(routes.Tasks.tasks)
     }
