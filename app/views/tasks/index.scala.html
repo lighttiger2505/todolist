@@ -1,0 +1,48 @@
+@(tasks: List[Task], taskForm: Form[Task])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Todo list") {
+<div class="container">
+  <h1>Menu</h1>
+  <li>
+    <ul><a href="@routes.Tasks.add()">new task</a></ul>
+  </li>
+
+  <h1>List<h1>
+      <h2>@tasks.size task(s)</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>タスク</th>
+            <th>編集</th>
+          </tr>
+        </thead>
+        <tbody>
+          @tasks.map { task =>
+          <tr>
+            <td>
+              @task.label
+            </td>
+            <td>
+              <ul class="nav nav-pills">
+                <li>
+                  @form(routes.Tasks.delete(task.id.get)) {
+                  <button class="btn" type="submit">Delete</button>
+                  }
+                </li>
+                <li>
+                  @form(routes.Tasks.edit(task.id.get)) {
+                  <button class="btn" type="submit">Edit</button>
+                  }
+                </li>
+              </ul>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+  </div>

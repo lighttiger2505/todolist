@@ -8,11 +8,11 @@ import play.api.Play.current
 import java.util.{Date}
 
 case class Task(
-    id: Pk[Long], 
-    label: String,
-    date: Option[Date],
-    priority: Option[Int],
-    memo: Option[String]
+    id       : Pk[Long],
+    label    : String,
+    date     : Option[Date],
+    priority : Option[Int],
+    memo     : Option[String]
 )
 
 object Task {
@@ -46,9 +46,9 @@ object Task {
                 task (label, memo, date, priority) 
                 values ({label}, {memo}, {date}, {priority})
                 """).on(
-                    'label -> task.label,
-                    'memo -> task.memo,
-                    'date -> task.date,
+                    'label    -> task.label,
+                    'memo     -> task.memo,
+                    'date     -> task.date,
                     'priority -> task.priority
                 ).executeUpdate()
                 }
@@ -60,15 +60,15 @@ object Task {
                 update 
                 task 
                 set 
-                label = {label},
-                date = {date},
+                label    = {label},
+                date     = {date},
                 priority = {priority}
                 where id = {id}
                 """).on(
-                    'id -> id,
-                    'label -> task.label,
-                    'memo -> task.memo,
-                    'date -> task.date,
+                    'id       -> id,
+                    'label    -> task.label,
+                    'memo     -> task.memo,
+                    'date     -> task.date,
                     'priority -> task.priority
                 ).executeUpdate()
                 }

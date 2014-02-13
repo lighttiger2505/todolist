@@ -11,7 +11,7 @@ import anorm._
 object Application extends Controller {
 
     def index = Action {
-        Redirect(routes.Tasks.tasks)
+        Redirect(routes.SignUp.login)
     }
 }
 

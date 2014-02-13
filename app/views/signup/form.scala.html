@@ -1,0 +1,47 @@
+@(signupForm: Form[User])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Signup") {
+
+  @helper.form(routes.SignUp.create) {
+
+  <fieldset>
+      <span/>
+        <legend><h1>Account information<h1></legend>
+
+      @inputText(
+      signupForm("email"), 
+      '_label -> "Email",
+      '_help -> "Enter a valid email address."
+      )
+
+      @inputText(
+      signupForm("name"), 
+      '_label -> "Name", 
+      '_help -> "Please choose a valid username.",
+      '_error -> signupForm.globalError
+      )
+
+      @inputPassword(
+      signupForm("password.main"), 
+      '_label -> "Password",
+      '_help -> "A password must be at least 6 characters. "
+      )
+
+      @inputPassword(
+      signupForm("password.confirm"), 
+      '_label -> "Repeat password",
+      '_help -> "Please repeat your password again.",
+      '_error -> signupForm.error("password")
+      )
+
+    </fieldset>
+
+    <div class="actions">
+      <input type="submit" class="btn primary" value="Sign Up">
+      <a href="@routes.Application.index" class="btn">Cancel</a>
+    </div>
+  }
+}

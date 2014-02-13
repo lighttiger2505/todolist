@@ -1,0 +1,29 @@
+@(id: Long, taskForm: Form[Task])
+
+@import helper._
+
+@main("Task edit") {
+
+<h1>Edit task</h1>
+
+@form(routes.Tasks.update(id)) {
+@inputText(
+field = taskForm("label"), 
+args = 'size -> 10)
+
+@inputText(
+field = taskForm("date"),
+args = 'size -> 10)
+
+@inputText(
+field = taskForm("priority"),
+args = 'size -> 5)
+
+@textarea(
+field = taskForm("memo"), 
+args = 'rows -> 3, 'cols -> 20)
+
+<button type="submit" class="btn btn-primary">Edit</button>
+<button class="btn">Cancel</button>
+}
+}
